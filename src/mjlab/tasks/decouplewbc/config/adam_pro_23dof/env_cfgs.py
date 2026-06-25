@@ -23,6 +23,22 @@ from mjlab.tasks.decouplewbc.decouplewbc_env_cfg import make_decouplewbc_env_cfg
 from mjlab.tasks.decouplewbc.mdp import UniformDecouplewbcCommandCfg
 
 
+LOWER_BODY_JOINT_NAMES = (
+  r".*_hip_pitch_joint",
+  r".*_hip_roll_joint",
+  r".*_hip_yaw_joint",
+  r".*_knee_joint",
+  r".*_ankle_pitch_joint",
+  r".*_ankle_roll_joint",
+)
+
+LOWER_BODY_ACTION_SCALE = {
+  key: value
+  for key, value in ADAM_PRO_23DOF_ACTION_SCALE.items()
+  if key in LOWER_BODY_JOINT_NAMES
+}
+
+
 def _set_play_command(
   cmd: UniformDecouplewbcCommandCfg,
   *,
@@ -129,7 +145,8 @@ def adam_pro_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
 
   joint_pos_action = cfg.actions["joint_pos"]
   assert isinstance(joint_pos_action, JointPositionActionCfg)
-  joint_pos_action.scale = ADAM_PRO_23DOF_ACTION_SCALE
+  joint_pos_action.actuator_names = LOWER_BODY_JOINT_NAMES
+  joint_pos_action.scale = LOWER_BODY_ACTION_SCALE
 
   cfg.viewer.body_name = "torso_link"
 
@@ -138,6 +155,14 @@ def adam_pro_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
   twist_cmd.viz.z_offset = 2.0
   cfg.observations["actor"].history_length = 5
   cfg.observations["critic"].history_length = 5
+  lower_body_asset_cfg = SceneEntityCfg("robot", joint_names=LOWER_BODY_JOINT_NAMES)
+  for group_name in ("actor", "critic"):
+    cfg.observations[group_name].terms["joint_pos"].params["asset_cfg"] = (
+      lower_body_asset_cfg
+    )
+    cfg.observations[group_name].terms["joint_vel"].params["asset_cfg"] = (
+      lower_body_asset_cfg
+    )
 
   cfg.events["foot_friction"].params["asset_cfg"].geom_names = geom_names
   # Randomize all body COM offsets (torso_link keeps original ranges; others +/-0.02m).
