@@ -1,0 +1,182 @@
+<mujoco model="cowa_wheel_legged_v0.2">
+  <compiler angle="radian" meshdir="assets/" />
+
+  <default>
+    <default class="cowa_wheel_legged_v0.2">
+      <default class="visual">
+        <geom group="2" type="mesh" density="0" material="silver" contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom group="3" rgba=".2 .6 .2 .3" type="capsule" contype="1" conaffinity="1"/>
+        <!-- <default class="foot_capsule">
+          <geom type="capsule" size="0.01"/>
+        </default> -->
+      </default>
+      <site group="5" rgba="1 0 0 1"/>
+    </default>
+  </default>
+
+  <asset>
+    <material name="silver" rgba="0.7 0.7 0.7 1"/>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+    <mesh name="base_link" file="base_link.STL" />
+    <mesh name="link1" file="link1.STL" />
+    <mesh name="link2" file="link2.STL" />
+    <mesh name="link3" file="link3.STL" />
+    <mesh name="link4" file="link4.STL" />
+    <mesh name="link5" file="link5.STL" />
+    <mesh name="link6" file="link6.STL" />
+    <mesh name="left_hip_roll_link" file="left_hip_roll_link.STL" />
+    <mesh name="left_hip_pitch_link" file="left_hip_pitch_link.STL" />
+    <mesh name="left_knee_pitch_link" file="left_knee_pitch_link.STL" />
+    <mesh name="left_wheel_link" file="left_wheel_link.STL" />
+    <mesh name="left_foot_link" file="left_foot_link.STL" />
+    <mesh name="right_hip_roll_link" file="right_hip_roll_link.STL" />
+    <mesh name="right_hip_pitch_link" file="right_hip_pitch_link.STL" />
+    <mesh name="right_knee_pitch_link" file="right_knee_pitch_link.STL" />
+    <mesh name="right_wheel_link" file="right_wheel_link.STL" />
+    <mesh name="right_foot_link" file="right_foot_link.STL" />
+  </asset>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0.4" childclass="cowa_wheel_legged_v0.2">
+      <light pos="0 0 2" mode="trackcom" castshadow="false"/>
+      <camera name="tracking" pos="1.734 -1.135 .35" xyaxes="0.552 0.834 -0.000 -0.170 0.112 0.979" mode="trackcom"/>
+      <freejoint/>
+      <inertial pos="0.0212934 -0.0014429 0.1189475" mass="23.2516" diaginertia="0.3541676 0.4335438 0.4571385"/>
+      <geom class="visual" material="black" mesh="base_link" />
+      <geom name="base_link_collision" class="collision" pos="-0.08 0 0.15" type="box" size="0.325 0.17 0.15" />
+      <site name="imu_in_base_link" size="0.01" pos="0 0 0"/>
+      <body name="link1" pos="0.157 0 0.2918">
+        <inertial pos="-0.0000229 0.0032524 0.0308719" mass="0.4349" diaginertia="0.0014681 0.000661 0.0011984"/>
+        <geom class="visual" material="black" mesh="link1" />
+        <body name="link2" pos="0 -0.0511 0.067" quat="-0.6743044 -0.6743003 -0.2128792 0.2128735">
+          <inertial pos="-0.1427818 -0.0005125 -0.0460443" mass="2.8874" diaginertia="0.0031652 0.0742936 0.0733537"/>
+          <geom class="visual" material="black" mesh="link2" />
+          <body name="link3" pos="-0.34 0 0.0009" quat="0.7071055 0 0 -0.7071081">
+            <inertial pos="-0.0549261 0.1078005 -0.0523482" mass="1.1011" diaginertia="0.0058093 0.0020871 0.0057772"/>
+            <geom class="visual" material="black" mesh="link3" />
+            <body name="link4" pos="-0.07 0.1892 -0.052" quat="0.7071055 -0.7071081 0 0">
+              <inertial pos="0.0003687 0.0080424 0.1381952" mass="0.4403" diaginertia="0.0036534 0.0035753 0.0003575"/>
+              <geom class="visual" material="black" mesh="link4" />
+              <body name="link5" pos="0 0.0265 0.2658" quat="-0.0000026 -0.0000026 0.7071081 0.7071055">
+                <inertial pos="-0.000018 0.0373704 -0.0311214" mass="1.3844" diaginertia="0.0027966 0.0008357 0.0026999"/>
+                <geom class="visual" material="black" mesh="link5" />
+                <body name="link6" pos="0 0.1085 -0.0265" quat="-0.0000026 -0.0000026 -0.7071081 -0.7071055">
+                  <inertial pos="-0.005736 0.0009536 0.0348138" mass="0.5544" diaginertia="0.000254 0.0004052 0.0004041"/>
+                  <geom class="visual" material="black" mesh="link6" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="left_hip_roll_link" pos="0.05 0.1475 0.0495" quat="-0.0000026 0.7071055 -0.0000026 -0.7071081">
+        <joint name="left_hip_roll_joint" type="hinge" axis="0 0 1" limited="true" range="-0.523 0.523" actuatorfrclimited="true" actuatorfrcrange="-35 35" damping="0" frictionloss="0"/>
+        <inertial pos="0.0001852 -0.0080838 0.0462372" mass="1.1238" diaginertia="0.0011152 0.0009023 0.0010161"/>
+        <geom class="visual" material="black" mesh="left_hip_roll_link" />
+        <geom name="left_hip_roll_collision" class="collision" pos="0 -0.02 0.05" quat="0.7073883 0.7068252 0 0" type="cylinder" size="0.04 0.05" />
+        <body name="left_hip_pitch_link" pos="0 -0.0495 0.05" quat="0.6324757 0.6324781 -0.3161844 0.3161856">
+          <joint name="left_hip_pitch_joint" type="hinge" axis="0 0 1" limited="true" range="-1.74 0.87" actuatorfrclimited="true" actuatorfrcrange="-105 105" damping="0" frictionloss="0"/>
+          <inertial pos="0.0622698 0.00738 0.0442843" mass="2.62" diaginertia="0.0021896 0.0269346 0.0273978"/>
+          <geom class="visual" material="black" mesh="left_hip_pitch_link" />
+          <geom name="left_hip_pitch_collision" class="collision" pos="0.1 0.02 0.04" quat="0.7051258 -0.0564857 0.7045645 0.0565307" type="cylinder" size="0.04 0.175" />
+          <body name="left_knee_pitch_link" pos="0.25 0 0.054" quat="0.6000362 0 0 -0.7999729">
+            <joint name="left_knee_pitch_joint" type="hinge" axis="0 0 -1" limited="true" range="-0.87 0.87" actuatorfrclimited="true" actuatorfrcrange="-230 230" damping="0" frictionloss="0"/>
+            <inertial pos="0.2140681 0.0009074 0.0327129" mass="2.4368" diaginertia="0.0031162 0.0188822 0.019755"/>
+            <geom class="visual" material="black" mesh="left_knee_pitch_link" />
+            <geom name="left_hip_knee_collision" class="collision" pos="0.1 0.01 0" quat="0.5175881 0.5171761 0.4817994 0.4821833" type="cylinder" size="0.03 0.15" />
+            <body name="left_wheel_link" pos="0.25 0.0000448 0.0685" quat="0.9486895 0 0 -0.3162092">
+              <joint name="left_wheel_joint" type="hinge" axis="0 0 1" actuatorfrclimited="true" actuatorfrcrange="-40 40" damping="0" frictionloss="0"/>
+              <inertial pos="0 0 -0.0125679" mass="1.0699" diaginertia="0.0039929 0.0039929 0.0076317"/>
+              <geom class="visual" material="black" mesh="left_wheel_link" />
+              <geom name="left_wheel_collision" class="collision" pos="0 0 -0.016" type="cylinder" size="0.11 0.02" />
+            </body>
+            <body name="left_foot_link" pos="0.25 0.0000448 0.0065" quat="-0.0000035 0.9486898 -0.3162083 0.0000012">
+              <site name="left_foot" rgba="1 0 0 1" pos="0 -0.118 0"/>
+              <joint name="left_foot_joint" type="hinge" axis="0 0 -1" limited="true" range="-2.79 1.04" actuatorfrclimited="true" actuatorfrcrange="-58 58" damping="0" frictionloss="0"/>
+              <inertial pos="-0.0003002 -0.025041 0.0248763" mass="1.7403" diaginertia="0.0054939 0.0034915 0.0058443"/>
+              <geom class="visual" material="black" mesh="left_foot_link" />
+              <geom name="left_foot_actuator_collision" pos="0 0 0.02" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="cylinder" size="0.04 0.065" />
+              <geom name="left_foot1_collision" pos="0 -0.118 0" quat="0.5003982 0.4999998 0.4996018 0.4999998" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="cylinder" size="0.005 0.07" />
+              <geom name="left_foot2_collision" pos="0.09 -0.118 0" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+              <geom name="left_foot3_collision" pos="0.09 -0.118 -0.042" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+              <geom name="left_foot4_collision" pos="0 -0.118 -0.045" quat="0.5003982 0.4999998 0.4996018 0.4999998" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="cylinder" size="0.005 0.07" />
+              <geom name="left_foot5_collision" pos="-0.09 -0.118 -0.04" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+              <geom name="left_foot6_collision" pos="-0.09 -0.118 0" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_roll_link" pos="0.05 -0.1475 0.0495" quat="-0.0000026 0.7071055 -0.0000026 -0.7071081">
+        <joint name="right_hip_roll_joint" type="hinge" axis="0 0 -1" limited="true" range="-0.523 0.523" actuatorfrclimited="true" actuatorfrcrange="-35 35" damping="0" frictionloss="0"/>
+        <inertial pos="0.0001852 0.0080838 0.0462372" mass="1.1238" diaginertia="0.0011152 0.0009023 0.0010161"/>
+        <geom class="visual" material="black" mesh="right_hip_roll_link" />
+        <geom name="right_hip_roll_collision" class="collision" pos="0 0.02 0.05" quat="0.7073883 0.7068252 0 0" type="cylinder" size="0.04 0.05" />
+        <body name="right_hip_pitch_link" pos="0 0.0495 0.05" quat="0.6324757 -0.6324781 -0.3161844 -0.3161856">
+          <joint name="right_hip_pitch_joint" type="hinge" axis="0 0 -1" limited="true" range="-1.74 0.87" actuatorfrclimited="true" actuatorfrcrange="-105 105" damping="0" frictionloss="0"/>
+          <inertial pos="0.0622698 -0.00738 0.0442843" mass="2.62" diaginertia="0.0021896 0.0269346 0.0273978"/>
+          <geom class="visual" material="black" mesh="right_hip_pitch_link" />
+          <geom name="right_hip_pitch_collision" class="collision" pos="0.1 -0.02 0.04" quat="0.7051258 0.0564857 0.7045645 -0.0565307" type="cylinder" size="0.04 0.175" />
+          <body name="right_knee_pitch_link" pos="0.25 0 0.054" quat="0.6000362 0 0 0.7999729">
+            <joint name="right_knee_pitch_joint" type="hinge" axis="0 0 1" limited="true" range="-0.87 0.87" actuatorfrclimited="true" actuatorfrcrange="-230 230" damping="0" frictionloss="0"/>
+            <inertial pos="0.2140681 -0.0009074 0.0327129" mass="2.4368" diaginertia="0.0031162 0.0188822 0.019755"/>
+            <geom class="visual" material="black" mesh="right_knee_pitch_link" />
+            <geom name="right_knee_pitch_collision" class="collision" pos="0.1 -0.01 0" quat="0.5175881 0.5171761 -0.4817994 -0.4821833" type="cylinder" size="0.03 0.15" />
+            <body name="right_wheel_link" pos="0.25 -0.0000448 0.0685" quat="0.9486898 0 0 0.3162083">
+              <joint name="right_wheel_joint" type="hinge" axis="0 0 -1" actuatorfrclimited="true" actuatorfrcrange="-40 40" damping="0" frictionloss="0"/>
+              <inertial pos="0 0 -0.0125679" mass="1.0699" diaginertia="0.0039929 0.0039929 0.0076317"/>
+              <geom class="visual" material="black" mesh="right_wheel_link" />
+              <geom name="right_wheel_collision" class="collision" pos="0 0 -0.016" type="cylinder" size="0.11 0.02" />
+            </body>
+            <body name="right_foot_link" pos="0.25 -0.0000448 0.0065" quat="-0.0000035 0.9486898 0.3162083 -0.0000012">
+              <site name="right_foot" rgba="1 0 0 1" pos="0 0.118 0"/>
+              <joint name="right_foot_joint" type="hinge" axis="0 0 1" limited="true" range="-2.79 1.04" actuatorfrclimited="true" actuatorfrcrange="-58 58" damping="0" frictionloss="0"/>
+              <inertial pos="0.0002112 0.0254561 0.0248695" mass="1.7602" diaginertia="0.0055319 0.0034959 0.0058867"/>
+              <geom class="visual" material="black" mesh="right_foot_link" />
+              <geom name="right_foot_actuator_collision" pos="0 0 0.02" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="cylinder" size="0.04 0.065" />
+              <geom name="right_foot1_collision" pos="0 0.118 0" quat="0.5003982 0.4999998 0.4996018 0.4999998" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="cylinder" size="0.005 0.07" />
+              <geom name="right_foot2_collision" pos="0 0.118 -0.045" quat="0.5003982 0.4999998 0.4996018 0.4999998" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="cylinder" size="0.005 0.07" />
+              <geom name="right_foot3_collision" pos="0.09 0.118 0" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+              <geom name="right_foot4_collision" pos="0.09 0.118 -0.042" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+              <geom name="right_foot5_collision" pos="-0.09 0.118 -0.04" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+              <geom name="right_foot6_collision" pos="-0.09 0.118 0" rgba="0.9373 0.2667 0.2667 1" group="3" contype="1" conaffinity="1" type="sphere" size="0.005" />
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <!-- <actuator>
+    <position name="left_hip_roll_joint_servo" joint="left_hip_roll_joint" kp="17.5" />
+    <position name="left_hip_pitch_joint_servo" joint="left_hip_pitch_joint" kp="52.5" />
+    <position name="left_knee_pitch_joint_servo" joint="left_knee_pitch_joint" kp="115" />
+    <position name="left_wheel_joint_servo" joint="left_wheel_joint" kp="20" />
+    <position name="left_foot_joint_servo" joint="left_foot_joint" kp="29" />
+    <position name="right_hip_roll_joint_servo" joint="right_hip_roll_joint" kp="17.5" />
+    <position name="right_hip_pitch_joint_servo" joint="right_hip_pitch_joint" kp="52.5" />
+    <position name="right_knee_pitch_joint_servo" joint="right_knee_pitch_joint" kp="115" />
+    <position name="right_wheel_joint_servo" joint="right_wheel_joint" kp="20" />
+    <position name="right_foot_joint_servo" joint="right_foot_joint" kp="29" />
+  </actuator> -->
+  <contact>
+    <exclude body1="left_hip_roll_link" body2="left_hip_pitch_link"/>
+    <exclude body1="left_hip_pitch_link" body2="left_knee_pitch_link"/>
+    <exclude body1="left_knee_pitch_link" body2="left_wheel_link"/>
+    <exclude body1="left_knee_pitch_link" body2="left_foot_link"/>
+    <exclude body1="left_wheel_link" body2="left_foot_link"/>
+    <exclude body1="right_hip_roll_link" body2="right_hip_pitch_link"/>
+    <exclude body1="right_hip_pitch_link" body2="right_knee_pitch_link"/>
+    <exclude body1="right_knee_pitch_link" body2="right_wheel_link"/>
+    <exclude body1="right_knee_pitch_link" body2="right_foot_link"/>
+    <exclude body1="right_wheel_link" body2="right_foot_link"/>
+    <exclude body1="base_link" body2="right_hip_roll_link"/>
+    <exclude body1="base_link" body2="left_hip_roll_link"/>
+  </contact>
+  <sensor>
+    <gyro name="imu_ang_vel" site="imu_in_base_link"/>
+    <velocimeter name="imu_lin_vel" site="imu_in_base_link"/>
+    <accelerometer name="imu_lin_acc" site="imu_in_base_link"/>
+    <subtreeangmom name="root_angmom" body="base_link"/>
+  </sensor>
+</mujoco>
