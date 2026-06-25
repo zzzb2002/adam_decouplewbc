@@ -103,10 +103,18 @@ ADAM_PRO_23DOF_ARM_SHOULDER_ACTUATOR = BuiltinPositionActuatorCfg(
   target_names_expr=(
     ".*_shoulder_pitch_joint",
     ".*_shoulder_roll_joint",
+  ),
+  stiffness=44.0,  #60
+  damping=5.0,     #3.0
+  effort_limit=65.0,
+  armature=0.01,
+)
+ADAM_PRO_23DOF_ARM_SHOULDER_ACTUATOR = BuiltinPositionActuatorCfg(
+  target_names_expr=(
     ".*_shoulder_yaw_joint",
   ),
-  stiffness=60.0,
-  damping=3.0,
+  stiffness=44.0,  #60
+  damping=2.0,     #3.0
   effort_limit=65.0,
   armature=0.01,
 )
@@ -114,8 +122,8 @@ ADAM_PRO_23DOF_ARM_ELBOW_ACTUATOR = BuiltinPositionActuatorCfg(
   target_names_expr=(
     ".*_elbow_joint",
   ),
-  stiffness=60.0,
-  damping=3.0,
+  stiffness=32.0,  #60
+  damping=2.0,     #3.0
   effort_limit=30.0,
   armature=0.01,
 )

@@ -163,6 +163,7 @@ def adam_pro_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     cfg.observations[group_name].terms["joint_vel"].params["asset_cfg"] = (
       lower_body_asset_cfg
     )
+  cfg.rewards["pose"].params["asset_cfg"] = lower_body_asset_cfg
 
   cfg.events["foot_friction"].params["asset_cfg"].geom_names = geom_names
   # Randomize all body COM offsets (torso_link keeps original ranges; others +/-0.02m).
@@ -267,15 +268,6 @@ def adam_pro_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     r".*knee.*": 0.35,
     r".*ankle_pitch.*": 0.25,
     r".*ankle_roll.*": 0.1,
-    # Waist.
-    r".*waist_yaw.*": 0.2,
-    r".*waist_roll.*": 0.08,
-    r".*waist_pitch.*": 0.1,
-    # Arms.
-    r".*shoulder_pitch.*": 0.15,
-    r".*shoulder_roll.*": 0.15,
-    r".*shoulder_yaw.*": 0.1,
-    r".*elbow.*": 0.15,
   }
   cfg.rewards["pose"].params["std_running"] = {
     # Lower body.
@@ -285,15 +277,6 @@ def adam_pro_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     r".*knee.*": 0.6,
     r".*ankle_pitch.*": 0.35,
     r".*ankle_roll.*": 0.15,
-    # Waist.
-    r".*waist_yaw.*": 0.3,
-    r".*waist_roll.*": 0.08,
-    r".*waist_pitch.*": 0.2,
-    # Arms.
-    r".*shoulder_pitch.*": 0.5,
-    r".*shoulder_roll.*": 0.2,
-    r".*shoulder_yaw.*": 0.15,
-    r".*elbow.*": 0.35,
   }
 
   cfg.rewards["upright"].params["asset_cfg"].body_names = ("torso_link",)
